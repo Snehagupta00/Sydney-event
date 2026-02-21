@@ -60,8 +60,8 @@ A premium, state-of-the-art event discovery and management platform. Designed wi
 ### **1. Clone the Repository**
 
 ```bash
-git clone https://github.com/yourusername/sydney-events.git
-cd sydney-events
+git clone https://github.com/Snehagupta00/Sydney-event.git
+cd Sydney-event
 ```
 
 ### **2. Configuration**
