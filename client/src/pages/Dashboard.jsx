@@ -24,6 +24,7 @@ const Dashboard = ({ user }) => {
     const [syncing, setSyncing] = useState(false);
     const [importNotes, setImportNotes] = useState('');
     const [importSuccess, setImportSuccess] = useState(false);
+    const [scrapeMessage, setScrapeMessage] = useState(null);
     const [stats, setStats] = useState({ total: 0, new: 0, updated: 0, imported: 0 });
 
     useEffect(() => {
@@ -56,13 +57,17 @@ const Dashboard = ({ user }) => {
 
     const handleScrape = async () => {
         setSyncing(true);
+        setScrapeMessage(null);
         try {
-            await api.post('/events/scrape');
+            const res = await api.post('/events/scrape');
             await fetchEvents();
+            setScrapeMessage({ type: 'success', text: res.data.message || 'Sync complete' });
         } catch (err) {
             console.error(err);
+            setScrapeMessage({ type: 'error', text: 'Sync failed. Check server connection.' });
         }
         setSyncing(false);
+        setTimeout(() => setScrapeMessage(null), 5000);
     };
 
     const handleImport = async (e) => {
@@ -114,14 +119,26 @@ const Dashboard = ({ user }) => {
                             <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Engine: Live</span>
                         </div>
-                        <button
-                            onClick={handleScrape}
-                            disabled={syncing}
-                            className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-indigo-600 text-white font-black text-[11px] uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all shadow-xl shadow-indigo-500/20 active:scale-95 disabled:opacity-50"
-                        >
-                            <RefreshCw size={16} className={syncing ? 'animate-spin' : ''} />
-                            {syncing ? 'SYNCING...' : 'SYNC DATA'}
-                        </button>
+                        <div className="flex flex-col items-end gap-2">
+                            <button
+                                id="scrape-btn"
+                                onClick={handleScrape}
+                                disabled={syncing}
+                                className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-indigo-600 text-white font-black text-[11px] uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all shadow-xl shadow-indigo-500/20 active:scale-95 disabled:opacity-50"
+                            >
+                                <RefreshCw size={16} className={syncing ? 'animate-spin' : ''} />
+                                {syncing ? 'SYNCING...' : 'SYNC DATA'}
+                            </button>
+                            {scrapeMessage && (
+                                <div className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest animate-in fade-in duration-300 ${
+                                    scrapeMessage.type === 'success'
+                                        ? 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
+                                        : 'bg-rose-500/10 border border-rose-500/20 text-rose-400'
+                                }`}>
+                                    {scrapeMessage.type === 'success' ? '✓' : '✗'} {scrapeMessage.text}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
 

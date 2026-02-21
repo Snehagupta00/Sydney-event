@@ -6,9 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const cron = require('node-cron');
 const User = require('./models/User');
-const { scrapeEvents } = require('./services/scraper');
 
 const app = express();
 
@@ -46,10 +44,7 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use('/api/events', require('./routes/eventRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 
-cron.schedule('0 * * * *', () => {
 
-    scrapeEvents();
-});
 
 app.get("/", (req, res) => {
     res.send("Server is running");
