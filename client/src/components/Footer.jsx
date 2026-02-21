@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-px bg-gradient-to-r from-transparent via-indigo-500/50 to-transparent"></div>
 
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
-                {/* Brand Column */}
+
                 <div className="col-span-1 md:col-span-1">
                     <div className="flex items-center gap-3 mb-8">
                         <div className="w-10 h-10 bg-white text-black rounded-xl flex items-center justify-center shadow-xl">
@@ -30,7 +30,7 @@ const Footer = () => {
                     </div>
                 </div>
 
-                {/* Navigation */}
+
                 <div>
                     <h4 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-10">Platform</h4>
                     <ul className="space-y-4">
@@ -44,7 +44,7 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                {/* Legal */}
+
                 <div>
                     <h4 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-10">Integrity</h4>
                     <ul className="space-y-4">
@@ -58,7 +58,7 @@ const Footer = () => {
                     </ul>
                 </div>
 
-                {/* Newsletter */}
+
                 <div className="col-span-1 md:col-span-1">
                     <h4 className="text-white font-black text-xs uppercase tracking-[0.2em] mb-10">Direct Dispatch</h4>
                     <p className="text-slate-500 font-bold mb-6 text-sm">Join the curated movement.</p>
@@ -75,7 +75,7 @@ const Footer = () => {
                 </div>
             </div>
 
-            {/* Bottom Bar */}
+
             <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-12 border-t border-white/5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 gap-8">
                 <p>© 2026 SYDNEY EVENTS INTEL. ALL RIGHTS RESERVED.</p>
                 <div className="flex gap-8">

@@ -26,7 +26,7 @@ const Navbar = ({ user, setUser }) => {
     return (
         <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-700 px-6 md:px-12 py-8 ${scrolled || isAdminPath ? 'bg-bg-deep/70 backdrop-blur-3xl border-b border-white/5 py-4' : 'bg-transparent'}`}>
             <div className="max-w-7xl mx-auto flex justify-between items-center px-4 md:px-8">
-                {/* Logo Section */}
+
                 <Link to="/" className="group flex items-center gap-4 relative">
                     <div className="absolute -inset-2 bg-indigo-500/10 rounded-2xl blur-lg group-hover:bg-indigo-500/20 transition-all opacity-0 group-hover:opacity-100"></div>
                     <div className="w-11 h-11 bg-white text-black rounded-xl flex items-center justify-center shadow-2xl transition-all group-hover:rotate-[15deg] relative z-10">
@@ -40,7 +40,7 @@ const Navbar = ({ user, setUser }) => {
                     </div>
                 </Link>
 
-                {/* Main Navigation (Hidden on Admin pages for clarity, or emphasized differently) */}
+
                 {!isAdminPath && (
                     <div className="hidden lg:flex items-center gap-12">
                         {[
@@ -60,11 +60,11 @@ const Navbar = ({ user, setUser }) => {
                     </div>
                 )}
 
-                {/* Actions / Admin Switcher */}
+
                 <div className="flex items-center gap-8">
                     {user ? (
                         <div className="flex items-center gap-6">
-                            {/* Admin Secondary Nav */}
+
                             <div className="hidden xl:flex items-center bg-white/5 border border-white/10 rounded-2xl p-1.5 backdrop-blur-md">
                                 <Link to="/dashboard" className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${isActive('/dashboard') ? 'bg-indigo-500 text-white shadow-lg' : 'text-slate-400 hover:text-white'}`}>
                                     <Layout size={14} />
@@ -100,7 +100,7 @@ const Navbar = ({ user, setUser }) => {
                         </div>
                     ) : (
                         <Link to="/login" className="group flex items-center gap-3 px-8 py-4 rounded-2xl bg-white text-black font-black text-[10px] uppercase tracking-[0.3em] hover:bg-indigo-500 hover:text-white transition-all shadow-2xl hover:shadow-indigo-500/20 active:scale-95">
-                            ADMIN PORTAL
+                            MEMBERS ACCESS
                             <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                         </Link>
                     )}
@@ -111,7 +111,7 @@ const Navbar = ({ user, setUser }) => {
                 </div>
             </div>
 
-            {/* Premium Mobile Overlay */}
+
             {mobileMenuOpen && (
                 <div className="fixed inset-0 bg-bg-deep/98 backdrop-blur-3xl z-[200] p-12 lg:hidden flex flex-col justify-between animate-in fade-in duration-500">
                     <div className="flex justify-between items-center mb-12">

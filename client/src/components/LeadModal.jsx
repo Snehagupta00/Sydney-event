@@ -21,7 +21,7 @@ const LeadModal = ({ event, onClose }) => {
                 eventId: event._id
             });
 
-            // Trigger success animation then redirect
+
             setTimeout(() => {
                 window.location.href = res.data.redirectUrl;
             }, 800);
@@ -36,7 +36,7 @@ const LeadModal = ({ event, onClose }) => {
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-6 bg-slate-950/90 backdrop-blur-xl animate-in fade-in duration-500" onClick={onClose}>
             <div className="w-full max-w-xl glass rounded-[3rem] border border-white/10 shadow-[0_32px_128px_-16px_rgba(0,0,0,0.8)] overflow-hidden relative animate-in zoom-in-95 duration-500" onClick={e => e.stopPropagation()}>
 
-                {/* Visual Header */}
+
                 <div className="relative h-48">
                     <img src={event.imageUrl} alt="" className="w-full h-full object-cover opacity-60" />
                     <div className="absolute inset-0 bg-gradient-to-t from-bg-card to-transparent"></div>
@@ -55,7 +55,7 @@ const LeadModal = ({ event, onClose }) => {
                     </div>
                 </div>
 
-                {/* Form Body */}
+
                 <div className="p-10 pb-12">
                     <p className="text-slate-400 font-medium mb-10 leading-relaxed">
                         To access ticket booking for <strong className="text-white font-black">{event.title}</strong>, please authenticate your request below. You'll be redirected to the provider's official gateway.
@@ -119,7 +119,7 @@ const LeadModal = ({ event, onClose }) => {
                     </form>
                 </div>
 
-                {/* Success Overlay */}
+
                 {loading && (
                     <div className="absolute inset-0 bg-indigo-600 flex flex-col items-center justify-center z-50 animate-in fade-in duration-500">
                         <div className="w-20 h-20 rounded-full border-4 border-white/30 border-t-white animate-spin mb-8"></div>

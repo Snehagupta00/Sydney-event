@@ -1,60 +1,155 @@
 import React, { useState } from 'react';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
-import { Lock, Mail, ChevronRight, Zap } from 'lucide-react';
+import { Lock, Mail, ChevronRight, Zap, User, ArrowLeft, ShieldCheck, Sparkles, UserPlus } from 'lucide-react';
 
 const Login = () => {
+    const [isSignUp, setIsSignUp] = useState(false);
+    const [isAdminMode, setIsAdminMode] = useState(false);
     const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleGoogleLogin = () => {
-        window.location.href = 'http://localhost:5000/api/auth/google';
+        window.location.href = `${import.meta.env.VITE_API_BASE_URL}/auth/google`;
     };
 
-    const handleAdminLogin = async (e) => {
+    const handleAuth = async (e) => {
         e.preventDefault();
         setLoading(true);
         setError('');
         try {
-            const res = await api.post('/auth/login', { email, password });
+            const endpoint = isSignUp ? '/auth/signup' : '/auth/login';
+            const payload = isSignUp ? { name, email, password } : { email, password };
+            
+            const res = await api.post(endpoint, payload);
             localStorage.setItem('token', res.data.token);
-            window.location.href = '/dashboard';
+            
+            if (isAdminMode && !isSignUp) {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/';
+            }
         } catch (err) {
-            setError(err.response?.data?.message || 'Invalid credentials. Check email and password.');
+            setError(err.response?.data?.message || 'Authentication failed. Please check your credentials.');
             setLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center px-6 py-20 bg-bg-deep relative overflow-hidden">
-            {/* Background Orbs */}
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-rose-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="h-screen w-full flex bg-bg-deep relative overflow-hidden font-sans">
+            
 
-            <div className="w-full max-w-lg relative z-10">
-                <div className="glass p-12 rounded-[3rem] border border-white/10 shadow-[0_32px_128px_-16px_rgba(0,0,0,0.9)] animate-in fade-in zoom-in duration-700">
+            <div className="hidden lg:flex lg:w-1/2 relative h-full overflow-hidden bg-slate-950 border-r border-white/10">
+                <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-[-10%] left-[-10%] w-[80%] h-[80%] bg-indigo-500/10 rounded-full blur-[120px] animate-pulse"></div>
+                    <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[60%] bg-rose-500/10 rounded-full blur-[150px] opacity-40"></div>
+                </div>
 
-                    {/* Brand Header */}
-                    <div className="text-center mb-12">
-                        <div className="w-20 h-20 bg-white rounded-3xl mx-auto mb-8 flex items-center justify-center shadow-2xl shadow-white/10 group hover:rotate-12 transition-transform cursor-default">
-                            <Zap className="fill-black text-black" size={36} />
+                <div className="relative z-10 p-16 pt-24 flex flex-col justify-between h-full w-full">
+                    <div>
+
+                        <div className="space-y-4 max-w-md">
+                            <h2 className="text-6xl font-black text-white leading-[0.9] tracking-tighter uppercase italic animate-in fade-in slide-in-from-left-8 duration-700">
+                                Access <br />
+                                <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-500 to-rose-500">The Pulse.</span>
+                            </h2>
+                            <p className="text-lg text-slate-500 font-medium leading-relaxed">
+                                Join our inner circle for exclusive access to the city's most definitive experiences.
+                            </p>
                         </div>
-                        <h1 className="text-5xl font-black text-white mb-3 tracking-tighter uppercase italic">Admin Portal</h1>
-                        <p className="text-slate-500 font-bold text-sm uppercase tracking-[0.2em]">Secure Intelligence Access</p>
                     </div>
 
-                    <form onSubmit={handleAdminLogin} className="space-y-6">
-                        <div className="space-y-3">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1">Email Address</label>
+                    <div className="grid grid-cols-2 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-300">
+                        <div className="p-5 rounded-2xl glass border-white/5">
+                            <Sparkles className="text-indigo-400 mb-2" size={20} />
+                            <h4 className="text-white font-black uppercase text-[10px] tracking-widest mb-1">Curated Benchmarks</h4>
+                            <p className="text-slate-600 text-[9px] font-bold leading-relaxed uppercase tracking-tighter">Verified by urban experts.</p>
+                        </div>
+                        <div className="p-5 rounded-2xl glass border-white/5">
+                            <ShieldCheck className="text-rose-400 mb-2" size={20} />
+                            <h4 className="text-white font-black uppercase text-[10px] tracking-widest mb-1">Secure Shell</h4>
+                            <p className="text-slate-600 text-[9px] font-bold leading-relaxed uppercase tracking-tighter">Enterprise-grade protection.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div className="absolute right-[-5%] bottom-[-5%] w-[110%] h-[50%] opacity-10 pointer-events-none overflow-hidden grayscale contrast-125">
+                     <img 
+                        src="https://images.unsplash.com/photo-1549463599-2479382f44ab?auto=format&fit=crop&w=1200&q=80" 
+                        alt="" 
+                        className="w-full h-full object-cover rounded-[5rem]"
+                     />
+                </div>
+            </div>
+
+
+            <div className="w-full lg:w-1/2 h-full flex flex-col justify-center items-center px-6 md:px-20 relative z-20 overflow-y-auto custom-scrollbar">
+                
+                <div className="w-full max-w-md py-12">
+
+                    <div className="mb-8 h-16 overflow-hidden">
+                        <div className={`transition-all duration-700 transform ${isSignUp ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}`}>
+                            <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic leading-none mb-1">
+                                Welcome <span className="text-indigo-500">Back.</span>
+                            </h2>
+                            <p className="text-slate-500 font-black text-[9px] uppercase tracking-[0.4em]">Initialize secure session</p>
+                        </div>
+                        <div className={`transition-all duration-700 transform ${isSignUp ? '-translate-y-full opacity-100' : 'translate-y-0 opacity-0'}`}>
+                            <h2 className="text-3xl font-black text-white tracking-tighter uppercase italic leading-none mb-1">
+                                Join The <span className="text-rose-500">Circle.</span>
+                            </h2>
+                            <p className="text-slate-500 font-black text-[9px] uppercase tracking-[0.4em]">Create discovery profile</p>
+                        </div>
+                    </div>
+
+
+                    {!isSignUp && (
+                        <div className="flex bg-white/5 p-1 rounded-xl mb-6 border border-white/5 w-fit">
+                            <button 
+                                onClick={() => setIsAdminMode(false)}
+                                className={`flex items-center gap-2 px-5 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${!isAdminMode ? 'bg-white text-black shadow-lg' : 'text-slate-600 hover:text-white'}`}
+                            >
+                                <User size={12} /> User
+                            </button>
+                            <button 
+                                onClick={() => setIsAdminMode(true)}
+                                className={`flex items-center gap-2 px-5 py-2 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all ${isAdminMode ? 'bg-indigo-500 text-white shadow-lg' : 'text-slate-600 hover:text-white'}`}
+                            >
+                                <Lock size={12} /> Admin
+                            </button>
+                        </div>
+                    )}
+
+                    <form onSubmit={handleAuth} className="space-y-4">
+
+                        <div className={`space-y-1.5 transition-all duration-500 ${isSignUp ? 'opacity-100' : 'hidden'}`}>
+                            <label className="text-[8px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1">Identity Name</label>
                             <div className="relative group">
-                                <Mail className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-indigo-400 transition-colors" size={20} />
+                                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-indigo-400 transition-colors" size={16} />
+                                <input
+                                    type="text"
+                                    placeholder="Jane Doe"
+                                    className="w-full pl-12 pr-6 py-3.5 rounded-xl bg-white/3 border border-white/10 font-bold text-white outline-none focus:border-indigo-500/50 focus:bg-white/5 transition-all text-sm placeholder:text-slate-800"
+                                    value={name}
+                                    onChange={e => setName(e.target.value)}
+                                    required={isSignUp}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="space-y-1.5">
+                            <label className="text-[8px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1">Universal ID</label>
+                            <div className="relative group">
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-indigo-400 transition-colors" size={16} />
                                 <input
                                     type="email"
-                                    placeholder="admin@sydneyevents.com"
-                                    className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white/5 border border-white/5 font-bold text-white outline-none focus:border-indigo-500/50 transition-all shadow-inner text-sm"
+                                    placeholder="agent@intel.net"
+                                    className="w-full pl-12 pr-6 py-3.5 rounded-xl bg-white/3 border border-white/10 font-bold text-white outline-none focus:border-indigo-500/50 focus:bg-white/5 transition-all text-sm placeholder:text-slate-800"
                                     value={email}
                                     onChange={e => setEmail(e.target.value)}
                                     required
@@ -62,14 +157,14 @@ const Login = () => {
                             </div>
                         </div>
 
-                        <div className="space-y-3">
-                            <label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1">Password</label>
+                        <div className="space-y-1.5">
+                            <label className="text-[8px] font-black text-slate-500 uppercase tracking-[0.3em] ml-1">Cipher Key</label>
                             <div className="relative group">
-                                <Lock className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-indigo-400 transition-colors" size={20} />
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-indigo-400 transition-colors" size={16} />
                                 <input
                                     type="password"
-                                    placeholder="••••••••••"
-                                    className="w-full pl-14 pr-6 py-5 rounded-2xl bg-white/5 border border-white/5 font-bold text-white outline-none focus:border-indigo-500/50 transition-all shadow-inner text-sm"
+                                    placeholder="••••••••••••"
+                                    className="w-full pl-12 pr-6 py-3.5 rounded-xl bg-white/3 border border-white/10 font-bold text-white outline-none focus:border-indigo-500/50 focus:bg-white/5 transition-all text-sm placeholder:text-slate-800"
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
                                     required
@@ -78,7 +173,7 @@ const Login = () => {
                         </div>
 
                         {error && (
-                            <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-sm font-bold text-rose-400 text-center">
+                            <div className="py-3 px-4 rounded-xl bg-rose-500/5 border border-rose-500/20 text-[10px] font-black text-rose-400 text-center uppercase tracking-wider">
                                 {error}
                             </div>
                         )}
@@ -86,38 +181,62 @@ const Login = () => {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-white text-black font-black py-5 px-6 rounded-2xl hover:bg-indigo-500 hover:text-white transition-all shadow-2xl shadow-white/10 active:scale-95 flex items-center justify-center gap-3 text-sm uppercase tracking-[0.2em] disabled:opacity-50"
+                            className={`w-full font-black py-4 px-6 rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-3 text-[10px] uppercase tracking-[0.3em] disabled:opacity-50 ${isSignUp ? 'bg-rose-500 text-white shadow-lg' : 'bg-white text-black shadow-lg hover:bg-indigo-500 hover:text-white'}`}
                         >
                             {loading ? (
-                                <div className="w-6 h-6 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                                <div className="w-5 h-5 border-2 border-current/20 border-t-current rounded-full animate-spin" />
                             ) : (
                                 <>
-                                    <span>AUTHENTICATE</span>
-                                    <ChevronRight size={20} />
+                                    <span>{isSignUp ? 'INITIALIZE PROFILE' : 'AUTHENTICATE'}</span>
+                                    <ChevronRight size={16} />
                                 </>
                             )}
                         </button>
                     </form>
 
-                    <div className="relative my-10">
+
+                    <div className="relative my-8">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-white/5"></div>
                         </div>
                         <div className="relative flex justify-center">
-                            <span className="px-4 text-[10px] font-black text-slate-600 uppercase tracking-[0.3em] bg-slate-950/60 rounded-full">OR CONTINUE WITH</span>
+                            <span className="px-5 text-[8px] font-black text-slate-700 uppercase tracking-[0.4em] bg-bg-deep rounded-full">Secure Linkage</span>
                         </div>
                     </div>
 
                     <button
                         onClick={handleGoogleLogin}
-                        className="w-full flex items-center justify-center gap-4 bg-white/5 border border-white/10 text-white font-bold py-5 px-6 rounded-2xl hover:bg-white/10 hover:border-white/20 transition-all active:scale-95"
+                        className="w-full flex items-center justify-center gap-4 bg-white/5 border border-white/10 text-white font-bold py-3.5 px-6 rounded-xl hover:bg-white/10 hover:border-white/20 transition-all active:scale-[0.98] group"
                     >
-                        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" className="w-5 h-5" />
-                        <span className="text-sm font-black uppercase tracking-widest">Sign in with Google</span>
+                        <div className="w-4 h-4 bg-white rounded flex items-center justify-center p-0.5 group-hover:scale-110 transition-transform">
+                            <svg viewBox="0 0 24 24" className="w-full h-full">
+                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05" />
+                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+                            </svg>
+                        </div>
+                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 group-hover:text-white transition-colors">Authorize with SSO</span>
                     </button>
 
-                    <p className="text-center mt-10 text-[10px] text-slate-600 font-black uppercase tracking-[0.2em]">
-                        Protected · Restricted Access · SydEvents Intel
+
+                    <div className="mt-8 text-center">
+                        <p className="text-[10px] font-bold text-slate-700 uppercase tracking-widest mb-3">
+                            {isSignUp ? "Already part of the pulse?" : "New to the discovery network?"}
+                        </p>
+                        <button 
+                            onClick={() => { setIsSignUp(!isSignUp); setError(''); }}
+                            className="flex items-center justify-center gap-2 mx-auto text-indigo-500 hover:text-white transition-colors group"
+                        >
+                            <span className="text-[10px] font-black uppercase tracking-[0.3em]">
+                                {isSignUp ? "Authenticate Existing Profile" : "Request New Dossier"}
+                            </span>
+                            {isSignUp ? <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" /> : <UserPlus size={14} className="transition-transform group-hover:translate-x-1" />}
+                        </button>
+                    </div>
+
+                    <p className="mt-8 text-[8px] text-slate-800 font-black uppercase tracking-[0.4em] text-center">
+                        Secure Environment · IP Logged · Privacy Shield
                     </p>
                 </div>
             </div>

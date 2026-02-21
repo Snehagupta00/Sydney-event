@@ -5,7 +5,7 @@ const About = () => {
     return (
         <div className="min-h-screen bg-bg-deep pt-36 pb-24 px-6 md:px-12">
             <div className="max-w-7xl mx-auto">
-                {/* Hero */}
+
                 <div className="flex flex-col items-center text-center mb-32">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border-indigo-500/20 text-indigo-400 text-xs font-black tracking-widest uppercase mb-8">
                         <Sparkles size={14} />
@@ -19,7 +19,7 @@ const About = () => {
                     </p>
                 </div>
 
-                {/* Values Grid */}
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-40">
                     {[
                         {
@@ -51,7 +51,7 @@ const About = () => {
                     ))}
                 </div>
 
-                {/* Story Section */}
+
                 <div className="flex flex-col lg:flex-row gap-20 items-center mb-40">
                     <div className="flex-1 relative">
                         <div className="absolute -top-20 -left-20 w-64 h-64 bg-indigo-500 rounded-full blur-[100px] opacity-20"></div>
@@ -89,7 +89,7 @@ const About = () => {
                     </div>
                 </div>
 
-                {/* Footer CTA */}
+
                 <div className="relative glass p-16 md:p-32 rounded-[5rem] overflow-hidden text-center">
                     <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,_rgba(99,102,241,0.1)_0%,_transparent_70%)] opacity-50"></div>
                     <Globe className="text-indigo-500 opacity-20 mx-auto mb-10" size={80} />

@@ -21,7 +21,7 @@ const Home = () => {
     useEffect(() => {
         const search = searchParams.get('search');
         if (search) {
-            // Give it a small delay to ensure content is rendered
+
             setTimeout(() => {
                 const el = document.getElementById('lineup');
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -55,13 +55,13 @@ const Home = () => {
     return (
         <div className="min-h-screen bg-bg-deep selection:bg-indigo-500 selection:text-white">
 
-            {/* Dynamic Background Elements */}
+
             <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/10 rounded-full blur-[120px] animate-pulse"></div>
                 <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-rose-500/10 rounded-full blur-[150px] opacity-40"></div>
             </div>
 
-            {/* Hero Section */}
+
             <header className="relative pt-48 pb-12 px-6 md:px-12 overflow-hidden">
                 <div className="max-w-7xl mx-auto relative z-10 text-center">
                     <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full glass border-white/5 text-indigo-400 text-[10px] font-black tracking-[0.3em] uppercase mb-10 animate-in fade-in slide-in-from-bottom-4 duration-1000">
@@ -78,7 +78,7 @@ const Home = () => {
                         Curated intelligence for the urban explorer. We bypass the noise to deliver the city's most definitive moments.
                     </p>
 
-                    {/* Industrial Search Logic */}
+
                     <div className="max-w-4xl mx-auto glass p-4 rounded-[2.5rem] border border-white/10 shadow-[0_32px_128px_-16px_rgba(0,0,0,0.8)] flex flex-col md:flex-row gap-4 animate-in fade-in zoom-in duration-1000">
                         <div className="flex-[2] flex items-center gap-5 px-8 py-5 rounded-[1.8rem] bg-white/5 border border-white/5 group focus-within:border-indigo-500/40 transition-all shadow-inner">
                             <Search className="text-slate-500 group-focus-within:text-indigo-400" size={24} />
@@ -107,7 +107,7 @@ const Home = () => {
                         </button>
                     </div>
 
-                    {/* Stats */}
+
                     <div className="mt-20 flex justify-center gap-20 animate-in fade-in duration-1000 delay-500">
                         {Object.entries(stats).map(([key, val]) => (
                             <div key={key} className="text-center">
@@ -119,7 +119,7 @@ const Home = () => {
                 </div>
             </header>
 
-            {/* Trending Section */}
+
             <main id="lineup" className="max-w-7xl mx-auto px-6 py-32 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-12">
                     <div className="max-w-lg">
@@ -174,7 +174,7 @@ const Home = () => {
                 )}
             </main>
 
-            {/* Feature Teasrs */}
+
             <section className="bg-white/2 py-40 border-y border-white/5 relative">
                 <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
                     <div>
@@ -211,7 +211,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* VIP CTA */}
+
             <section className="max-w-7xl mx-auto px-6 py-40">
                 <div className="glass p-20 md:p-32 rounded-[5rem] relative overflow-hidden text-center group">
                     <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 via-transparent to-rose-600/10 opacity-50 group-hover:opacity-100 transition-opacity duration-1000"></div>

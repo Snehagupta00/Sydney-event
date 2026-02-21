@@ -9,11 +9,11 @@ const EventCard = ({ event, onGetTickets, index }) => {
             className="group relative flex flex-col rounded-[2.5rem] bg-bg-card border border-white/5 overflow-hidden transition-all duration-500 hover:border-indigo-500/40 hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-2 animate-in fade-in slide-in-from-bottom-8 fill-mode-both"
             style={{ animationDelay: `${index * 80}ms` }}
         >
-            {/* Image Container */}
+
             <div className="relative h-60 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-transparent to-transparent z-10 opacity-70"></div>
 
-                {/* Category Badge */}
+
                 <div className="absolute top-5 left-5 z-20 flex gap-2 flex-wrap">
                     {(event.category || []).slice(0, 2).map((cat, i) => (
                         <span key={i} className="px-3 py-1.5 rounded-full bg-indigo-600/90 backdrop-blur-md text-[9px] font-black text-white uppercase tracking-widest border border-white/10">
@@ -27,7 +27,7 @@ const EventCard = ({ event, onGetTickets, index }) => {
                     )}
                 </div>
 
-                {/* Action Buttons */}
+
                 <div className="absolute top-5 right-5 z-20 flex gap-2">
                     <button
                         onClick={(e) => { e.stopPropagation(); setLiked(!liked); }}
@@ -55,10 +55,10 @@ const EventCard = ({ event, onGetTickets, index }) => {
                 />
             </div>
 
-            {/* Content Body */}
+
             <div className="flex-1 p-7 flex flex-col">
                 <div className="flex-1">
-                    {/* Date + City */}
+
                     <div className="flex items-center gap-3 text-indigo-400 mb-3 flex-wrap">
                         <div className="flex items-center gap-1 text-[11px] font-black uppercase tracking-widest">
                             <Calendar size={13} className="mb-0.5" />
@@ -71,18 +71,18 @@ const EventCard = ({ event, onGetTickets, index }) => {
                         </div>
                     </div>
 
-                    {/* Title */}
+
                     <h3 className="text-xl font-black text-white mb-3 line-clamp-2 leading-tight transition-colors group-hover:text-indigo-400 tracking-tight">
                         {event.title}
                     </h3>
 
-                    {/* Description */}
+
                     <p className="text-slate-500 text-sm font-medium line-clamp-2 leading-relaxed mb-4">
                         {event.summary || event.description || 'No description available for this experience.'}
                     </p>
                 </div>
 
-                {/* Footer */}
+
                 <div className="pt-5 border-t border-white/5 flex items-center justify-between">
                     <div className="min-w-0 flex-1 mr-4">
                         <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-1">Venue</p>

@@ -34,7 +34,7 @@ const Venues = () => {
     return (
         <div className="min-h-screen bg-bg-deep pt-48 pb-24 px-6 md:px-12 selection:bg-indigo-500 selection:text-white">
             <div className="max-w-7xl mx-auto">
-                {/* Lajawab Header */}
+
                 <div className="mb-32 text-center relative">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none"></div>
                     <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full glass border-white/5 text-indigo-400 text-[10px] font-black tracking-[0.4em] uppercase mb-10 relative z-10 transition-all hover:scale-105 cursor-default">
@@ -100,7 +100,7 @@ const Venues = () => {
                     </div>
                 )}
 
-                {/* Lajawab Partnership CTA */}
+
                 <div className="mt-48 glass p-20 md:p-32 rounded-[5rem] relative overflow-hidden flex flex-col lg:flex-row items-center gap-24 group shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)]">
                     <div className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-indigo-600 rounded-full blur-[200px] opacity-10 group-hover:opacity-20 transition-opacity"></div>
                     <div className="flex-1 relative z-10 text-center lg:text-left">

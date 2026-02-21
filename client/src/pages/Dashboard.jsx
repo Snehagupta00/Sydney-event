@@ -94,7 +94,7 @@ const Dashboard = ({ user }) => {
         <div className="min-h-screen bg-bg-deep pt-36 pb-12 px-4 md:px-10 selection:bg-rose-500/30">
             <div className="max-w-screen-2xl mx-auto">
 
-                {/* Page Header */}
+
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
                     <div>
                         <div className="flex items-center gap-4 mb-4">
@@ -125,7 +125,7 @@ const Dashboard = ({ user }) => {
                     </div>
                 </div>
 
-                {/* KPI Cards */}
+
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
                     {[
                         { label: 'Total Events', value: stats.total, color: 'text-white', icon: Database, bg: 'bg-white/5' },
@@ -146,9 +146,9 @@ const Dashboard = ({ user }) => {
                     ))}
                 </div>
 
-                {/* ── Filter Bar ── */}
+
                 <div className="glass rounded-3xl border border-white/5 p-5 mb-8 flex flex-wrap gap-4 items-end">
-                    {/* Keyword Search */}
+
                     <div className="flex-[2] min-w-[200px] relative group">
                         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-600 group-focus-within:text-indigo-400 transition-colors" size={18} />
                         <input
@@ -160,7 +160,7 @@ const Dashboard = ({ user }) => {
                         />
                     </div>
 
-                    {/* City Filter */}
+
                     <div className="relative min-w-[160px]">
                         <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-indigo-500" size={16} />
                         <select
@@ -173,7 +173,7 @@ const Dashboard = ({ user }) => {
                         </select>
                     </div>
 
-                    {/* Status Filter */}
+
                     <div className="relative min-w-[160px]">
                         <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={16} />
                         <select
@@ -189,7 +189,7 @@ const Dashboard = ({ user }) => {
                         </select>
                     </div>
 
-                    {/* Date Range */}
+
                     <div className="flex items-center gap-2 min-w-[240px]">
                         <div className="relative flex-1">
                             <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-600" size={14} />
@@ -212,7 +212,7 @@ const Dashboard = ({ user }) => {
                         </div>
                     </div>
 
-                    {/* Clear Filters */}
+
                     {hasFilters && (
                         <button
                             onClick={clearFilters}
@@ -224,10 +224,10 @@ const Dashboard = ({ user }) => {
                     )}
                 </div>
 
-                {/* ── Main Content: Table + Inspector ── */}
+
                 <div className="flex flex-col xl:flex-row gap-8" style={{ height: '760px' }}>
 
-                    {/* Event Table */}
+
                     <div className="flex-1 flex flex-col glass rounded-[3rem] border border-white/5 overflow-hidden shadow-2xl">
                         <div className="px-8 py-5 bg-white/3 border-b border-white/5 flex items-center justify-between">
                             <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">
@@ -298,11 +298,11 @@ const Dashboard = ({ user }) => {
                         </div>
                     </div>
 
-                    {/* Inspector Panel */}
+
                     {selectedEvent ? (
                         <div className="w-full xl:w-[500px] flex-shrink-0 flex flex-col glass rounded-[3rem] border border-white/5 overflow-hidden animate-in slide-in-from-right-12 duration-500 shadow-[0_32px_128px_-16px_rgba(0,0,0,0.9)]">
 
-                            {/* Inspector Header */}
+
                             <div className="p-8 bg-white/3 flex justify-between items-center border-b border-white/5 flex-shrink-0">
                                 <div>
                                     <p className="text-[10px] font-black text-indigo-500/60 uppercase tracking-[0.3em] mb-1">Record Inspector</p>
@@ -314,7 +314,7 @@ const Dashboard = ({ user }) => {
                             </div>
 
                             <div className="flex-1 overflow-y-auto custom-scrollbar">
-                                {/* Event Image */}
+
                                 <div className="relative h-56 flex-shrink-0">
                                     <img src={selectedEvent.imageUrl} alt="" className="w-full h-full object-cover opacity-60" onError={e => { e.target.parentNode.style.display = 'none' }} />
                                     <div className="absolute inset-0 bg-gradient-to-t from-bg-card via-bg-card/30 to-transparent"></div>
@@ -329,7 +329,7 @@ const Dashboard = ({ user }) => {
                                 </div>
 
                                 <div className="p-8 space-y-6">
-                                    {/* Metadata Grid */}
+
                                     <div className="grid grid-cols-2 gap-4">
                                         {[
                                             { label: 'Date', value: selectedEvent.date || '—' },
@@ -344,7 +344,7 @@ const Dashboard = ({ user }) => {
                                         ))}
                                     </div>
 
-                                    {/* Address */}
+
                                     {selectedEvent.address && (
                                         <div className="p-4 rounded-2xl bg-white/3 border border-white/5">
                                             <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-1">Address</p>
@@ -352,7 +352,7 @@ const Dashboard = ({ user }) => {
                                         </div>
                                     )}
 
-                                    {/* Description */}
+
                                     <div>
                                         <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest mb-3">Description</p>
                                         <p className="text-sm text-slate-400 font-medium leading-relaxed bg-white/3 p-5 rounded-2xl border border-white/5 italic">
@@ -360,7 +360,7 @@ const Dashboard = ({ user }) => {
                                         </p>
                                     </div>
 
-                                    {/* Original Link */}
+
                                     <a
                                         href={selectedEvent.originalUrl}
                                         target="_blank"
@@ -371,7 +371,7 @@ const Dashboard = ({ user }) => {
                                         <ArrowUpRight size={16} className="text-slate-600 group-hover:text-indigo-400 transition-colors" />
                                     </a>
 
-                                    {/* Last Scraped */}
+
                                     <p className="text-[10px] font-black text-slate-700 uppercase tracking-widest text-center">
                                         Last synced: {new Date(selectedEvent.lastScrapedAt).toLocaleString()}
                                     </p>

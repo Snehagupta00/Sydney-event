@@ -11,7 +11,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import api from './services/api';
 
-// Scroll to top on route change
+
 const ScrollToTop = () => {
   const { pathname } = useLocation();
   useEffect(() => {
@@ -20,10 +20,11 @@ const ScrollToTop = () => {
   return null;
 };
 
-// Layout wrapper to handle Footer visibility
+
 const LayoutWrapper = ({ user, setUser, children }) => {
   const location = useLocation();
-  const isAdminPage = location.pathname.startsWith('/dashboard') || location.pathname.startsWith('/leads');
+  const hideFooterPaths = ['/dashboard', '/leads', '/login', '/login-success'];
+  const shouldHideFooter = hideFooterPaths.some(path => location.pathname.startsWith(path));
 
   return (
     <>
@@ -32,7 +33,7 @@ const LayoutWrapper = ({ user, setUser, children }) => {
       <div className="pt-2">
         {children}
       </div>
-      {!isAdminPage && <Footer />}
+      {!shouldHideFooter && <Footer />}
     </>
   );
 };
@@ -80,7 +81,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/login-success" element={<LoginSuccess setUser={setUser} />} />
 
-          {/* Protected Area */}
+
           <Route
             path="/dashboard"
             element={user ? <Dashboard user={user} /> : <Navigate to="/login" />}
