@@ -1,9 +1,6 @@
 require('dotenv').config();
 const dns = require('dns');
 
-// Force usage of Google and Cloudflare DNS to bypass local/ISP DNS SRV resolution issues
-dns.setServers(['8.8.8.8', '1.1.1.1']);
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -50,7 +47,7 @@ app.use('/api/events', require('./routes/eventRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 
 cron.schedule('0 * * * *', () => {
-    console.log('Running automated scrape...');
+
     scrapeEvents();
 });
 

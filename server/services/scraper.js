@@ -13,14 +13,12 @@ function parseDate(dateStr) {
         return new Date(d.setHours(0, 0, 0, 0));
     }
 
-    // Try parsing strings like "Fri 20 Feb"
     const match = str.match(/(\d+)\s+(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/);
     if (match) {
         const day = parseInt(match[1]);
         const monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
         const month = monthNames.indexOf(match[2]);
         const d = new Date(now.getFullYear(), month, day);
-        // If the date is in the past, assume it's next year
         if (d < new Date(now.setHours(0, 0, 0, 0))) d.setFullYear(d.getFullYear() + 1);
         return d;
     }
@@ -32,20 +30,20 @@ const SOURCES = {
     SYDNEY: [
         {
             name: "What's On Sydney",
-            url: 'https://whatson.cityofsydney.nsw.gov.au/whats-on-today',
+            url: 'https://whatson.cityofsydney.nsw.gov.au/today',
             type: 'syndey_city_council'
         },
         {
             name: "Eventbrite Sydney",
             url: 'https://www.eventbrite.com.au/d/australia--sydney/events/',
-            type: 'mock' // Demonstrating multi-source capability
+            type: 'mock'
         }
     ],
     MELBOURNE: [
         {
             name: "What's On Melbourne",
             url: 'https://whatson.melbourne.vic.gov.au/what-on',
-            type: 'melbourne_mock' // Using a mock pattern for demo
+            type: 'melbourne_mock'
         }
     ]
 };
@@ -71,50 +69,45 @@ async function scrapeSydneyCity(source) {
     }
 
     try {
-        const { data } = await axios.get(source.url, {
+        const { data: html } = await axios.get(source.url, {
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
             },
-            timeout: 10000
+            timeout: 15000
         });
-        const $ = cheerio.load(data);
-        const events = [];
 
-        $('.event_tile').each((i, el) => {
-            const title = $(el).find('.event_tile-name-link').text().trim();
-            const relativeUrl = $(el).find('.event_tile-link').attr('href');
-            const originalUrl = relativeUrl ? `https://whatson.cityofsydney.nsw.gov.au${relativeUrl}` : null;
-            const venue = $(el).find('.event_card_location-content span').text().trim();
-            const category = $(el).find('.event_tile-category-link').text().trim();
-            const description = $(el).find('.event_tile-description').text().trim() || $(el).find('.event_tile-summary').text().trim();
+        const startIdx = html.indexOf('id=\"__NEXT_DATA__\"');
+        if (startIdx === -1) throw new Error('Could not find __NEXT_DATA__');
+        
+        const jsonStart = html.indexOf('>', startIdx) + 1;
+        const jsonEnd = html.indexOf('</script>', jsonStart);
+        const jsonStr = html.substring(jsonStart, jsonEnd);
+        const data = JSON.parse(jsonStr);
 
-            let imageUrl = '';
-            const style = $(el).find('.image_background-image').attr('style');
-            if (style) {
-                const match = style.match(/url\(['"]?([^'"]+)['"]?\)/);
-                if (match) imageUrl = match[1];
+        const sectionAdditionalData = data.props.pageProps.sectionAdditionalData || {};
+        let hits = [];
+        
+        for (const sectionId in sectionAdditionalData) {
+            const section = sectionAdditionalData[sectionId];
+            if (section && section.events && section.events.hits) {
+                hits = hits.concat(section.events.hits);
             }
+        }
 
-            const dateText = $(el).find('.event_tile-footer-item').first().text().trim();
-
-            if (title && originalUrl) {
-                events.push({
-                    title,
-                    originalUrl,
-                    venue,
-                    category: category ? [category] : [],
-                    description,
-                    summary: description,
-                    imageUrl,
-                    date: dateText,
-                    eventDate: parseDate(dateText),
-                    sourceName: source.name,
-                    city: 'Sydney',
-                    lastScrapedAt: new Date()
-                });
-            }
-        });
-        return events;
+        return hits.map(hit => ({
+            title: hit.name,
+            originalUrl: `https://whatson.cityofsydney.nsw.gov.au/events/${hit.slug}`,
+            venue: hit.venueName || 'Sydney',
+            category: hit.categories || [],
+            description: hit.strapline || '',
+            summary: hit.strapline || '',
+            imageUrl: hit.tileImageCloudinary && hit.tileImageCloudinary[0] ? hit.tileImageCloudinary[0].url : '',
+            date: hit.eventUpcomingTime || hit.upcomingDate,
+            eventDate: hit.upcomingDate ? new Date(hit.upcomingDate) : parseDate(hit.eventUpcomingTime),
+            sourceName: source.name,
+            city: 'Sydney',
+            lastScrapedAt: new Date()
+        }));
     } catch (err) {
         console.error(`Error scraping ${source.name}:`, err.message);
         return [];
@@ -125,14 +118,12 @@ async function scrapeEvents() {
     let totalCount = 0;
     const allScrapedUrls = [];
 
-    // Scrape Sydney - City Council
     for (const source of SOURCES.SYDNEY) {
         const events = await scrapeSydneyCity(source);
         totalCount += await processEvents(events);
         allScrapedUrls.push(...events.map(e => e.originalUrl));
     }
 
-    // Sydney Mock Expansion
     const extraSydney = [
         {
             title: "Bondi Beach Yoga Flow",
@@ -180,7 +171,6 @@ async function scrapeEvents() {
     totalCount += await processEvents(extraSydney);
     allScrapedUrls.push(...extraSydney.map(e => e.originalUrl));
 
-    // Melbourne Mock Expansion
     const melbourneMock = [
         {
             title: "Melbourne Coffee Festival",
@@ -228,8 +218,6 @@ async function scrapeEvents() {
     totalCount += await processEvents(melbourneMock);
     allScrapedUrls.push(...melbourneMock.map(e => e.originalUrl));
 
-    // Cleanup: Mark events not seen in this scrape as 'inactive'
-    // But NEVER mark 'imported' events as inactive — they're production assets
     await Event.updateMany(
         {
             originalUrl: { $nin: allScrapedUrls },
@@ -247,11 +235,9 @@ async function processEvents(scrapedEvents) {
         const existing = await Event.findOne({ originalUrl: eventData.originalUrl });
 
         if (!existing) {
-            // Brand new event — mark as 'new'
             await new Event({ ...eventData, status: 'new' }).save();
             count++;
         } else {
-            // Detect if key fields have changed since last scrape
             const changed = (
                 existing.title !== eventData.title ||
                 existing.date !== eventData.date ||
@@ -260,18 +246,15 @@ async function processEvents(scrapedEvents) {
                 existing.imageUrl !== eventData.imageUrl
             );
 
-            // Update fields from scrape
             Object.assign(existing, {
                 ...eventData,
                 lastScrapedAt: new Date()
             });
 
-            // Only change status if the event was changed AND not already 'imported'
             if (changed && existing.status !== 'imported') {
                 existing.status = 'updated';
             }
 
-            // If event was inactive but now seen again, revive it
             if (existing.status === 'inactive') {
                 existing.status = 'new';
             }
