@@ -1,0 +1,220 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+
+  --color-bg-deep: #050510;
+  --color-bg-card: #0d0d1a;
+  --color-bg-hover: #15152a;
+
+  --color-primary: #6366f1;
+  --color-primary-glow: rgba(99, 102, 241, 0.4);
+  --color-secondary: #f43f5e;
+  --color-secondary-glow: rgba(244, 63, 94, 0.4);
+
+  --color-accent: #8b5cf6;
+  --color-text-main: #f8fafc;
+  --color-text-dim: #94a3b8;
+  --color-text-muted: #64748b;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px -5px var(--color-primary);
+  }
+
+  to {
+    box-shadow: 0 0 20px 2px var(--color-primary);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-right {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@layer base {
+  :root {
+    background-color: var(--color-bg-deep);
+    color: var(--color-text-main);
+  }
+
+  body {
+    @apply font-sans antialiased;
+    background: radial-gradient(circle at 50% 0%, #1a1a3a 0%, #050510 70%);
+    min-height: 100vh;
+  }
+
+  * {
+    @apply m-0 p-0 box-border;
+  }
+
+  input,
+  textarea,
+  select {
+    color: white;
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #050510;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 10px;
+  }
+
+  ::selection {
+    background-color: #6366f1;
+    color: white;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-slate-950/40 backdrop-blur-2xl border border-white/5;
+  }
+
+  .glass-hover {
+    @apply transition-all duration-500 hover:bg-white/5 hover:border-white/10 hover:-translate-y-1;
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #1e293b #050510;
+  }
+}
+
+/* ── animate-in utility (Radix/Shadcn style) ── */
+.animate-in {
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: fade-in;
+}
+
+.zoom-in {
+  animation-name: zoom-in;
+}
+
+.zoom-in-95 {
+  animation-name: zoom-in;
+}
+
+.slide-in-from-bottom-4 {
+  animation-name: slide-in-from-bottom;
+}
+
+.slide-in-from-bottom-8 {
+  animation-name: slide-in-from-bottom;
+}
+
+.slide-in-from-bottom-12 {
+  animation-name: slide-in-from-bottom;
+}
+
+.slide-in-from-right-12 {
+  animation-name: slide-in-from-right;
+}
+
+.duration-300 {
+  animation-duration: 300ms;
+}
+
+.duration-500 {
+  animation-duration: 500ms;
+}
+
+.duration-700 {
+  animation-duration: 700ms;
+}
+
+.duration-1000 {
+  animation-duration: 1000ms;
+}
+
+.delay-100 {
+  animation-delay: 100ms;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-300 {
+  animation-delay: 300ms;
+}
+
+.delay-500 {
+  animation-delay: 500ms;
+}
+
+.fill-mode-both {
+  animation-fill-mode: both;
+}

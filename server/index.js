@@ -1,0 +1,60 @@
+require('dotenv').config();
+const dns = require('dns');
+
+// Force usage of Google and Cloudflare DNS to bypass local/ISP DNS SRV resolution issues
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const cron = require('node-cron');
+const User = require('./models/User');
+const { scrapeEvents } = require('./services/scraper');
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+app.use(passport.initialize());
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.CALLBACK_URL
+},
+    async (accessToken, refreshToken, profile, done) => {
+        try {
+            let user = await User.findOne({ googleId: profile.id });
+            if (!user) {
+                user = await new User({
+                    googleId: profile.id,
+                    email: profile.emails[0].value,
+                    name: profile.displayName,
+                    avatar: profile.photos[0].value
+                }).save();
+            }
+            return done(null, user);
+        } catch (err) {
+            return done(err, null);
+        }
+    }
+));
+
+mongoose.connect(process.env.MONGODB_URI)
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+app.use('/api/events', require('./routes/eventRoutes'));
+app.use('/api/auth', require('./routes/authRoutes'));
+
+cron.schedule('0 * * * *', () => {
+    console.log('Running automated scrape...');
+    scrapeEvents();
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
