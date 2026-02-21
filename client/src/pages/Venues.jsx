@@ -41,10 +41,10 @@ const Venues = () => {
             <Building2 size={14} />
             <span>Elite Infrastructure</span>
           </div>
-          <h1 className="text-7xl md:text-[10rem] font-black text-white mb-10 tracking-tighter leading-[0.85] italic uppercase relative z-10">
+          <h1 className="text-4xl sm:text-5xl md:text-[10rem] font-black text-white mb-6 md:mb-10 tracking-tighter leading-[0.85] italic uppercase relative z-10">
             Iconic <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-rose-500">Domains.</span>
           </h1>
-          <p className="text-slate-500 max-w-2xl mx-auto text-xl font-medium leading-relaxed relative z-10">
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed relative z-10">
             The architectural soul of the city. From high-gravity stadium anthems to the whispered secrets of underground basements.
           </p>
         </div>
@@ -71,9 +71,9 @@ const Venues = () => {
                     </div>
                   </div>
 
-                  <h3 className="text-4xl font-black text-white mb-3 leading-none italic uppercase tracking-tighter group-hover:text-indigo-400 transition-colors">{venue.name}</h3>
+                  <h3 className="text-3xl md:text-4xl font-black text-white mb-2 md:mb-3 leading-none italic uppercase tracking-tighter group-hover:text-indigo-400 transition-colors">{venue.name}</h3>
 
-                  <div className="flex items-center gap-2 text-slate-400 mb-10 font-bold text-sm tracking-tight">
+                  <div className="flex items-center gap-2 text-slate-400 mb-6 md:mb-10 font-bold text-xs md:text-sm tracking-tight">
                     <MapPin size={16} className="text-indigo-500/60" />
                     {venue.city}, AU_REG_01
                   </div>
@@ -101,14 +101,14 @@ const Venues = () => {
         )}
 
 
-        <div className="mt-48 glass p-20 md:p-32 rounded-[5rem] relative overflow-hidden flex flex-col lg:flex-row items-center gap-24 group shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)]">
+        <div className="mt-32 md:mt-48 glass p-8 md:p-32 rounded-3xl md:rounded-[5rem] relative overflow-hidden flex flex-col lg:flex-row items-center gap-12 md:gap-24 group shadow-[0_64px_128px_-32px_rgba(0,0,0,0.8)]">
           <div className="absolute -top-32 -right-32 w-[600px] h-[600px] bg-indigo-600 rounded-full blur-[200px] opacity-10 group-hover:opacity-20 transition-opacity"></div>
           <div className="flex-1 relative z-10 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 text-indigo-400 text-[10px] font-black tracking-[0.4em] uppercase mb-8">
               <Zap size={14} />
               <span>Partnership Hub</span>
             </div>
-            <h2 className="text-5xl md:text-[6rem] font-black text-white mb-10 tracking-tighter leading-[0.85] italic uppercase">
+            <h2 className="text-3xl md:text-[6rem] font-black text-white mb-6 md:mb-10 tracking-tighter leading-[0.85] italic uppercase">
               Your Venue, <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-rose-500">Our Intel.</span>
             </h2>

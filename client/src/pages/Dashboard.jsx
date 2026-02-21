@@ -251,7 +251,7 @@ const Dashboard = ({ user }) => {
         </div>
 
 
-        <div className="flex flex-col xl:flex-row gap-8" style={{ height: '760px' }}>
+        <div className="flex flex-col xl:flex-row gap-8 xl:h-[760px]">
 
 
           <div className="flex-1 flex flex-col glass rounded-[3rem] border border-white/5 overflow-hidden shadow-2xl">

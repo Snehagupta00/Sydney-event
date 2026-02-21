@@ -100,6 +100,8 @@
     @apply font-sans antialiased;
     background: radial-gradient(circle at 50% 0%, #1a1a3a 0%, #050510 70%);
     min-height: 100vh;
+    overflow-x: hidden;
+    width: 100vw;
   }
 
   * {

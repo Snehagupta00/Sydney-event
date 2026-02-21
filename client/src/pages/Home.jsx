@@ -67,7 +67,7 @@ const Home = () => {
             <span>Intelligence in Discovery</span>
           </div>
 
-          <h1 className="text-7xl md:text-[10rem] font-black text-white mb-10 leading-[0.8] tracking-tighter animate-in fade-in slide-in-from-bottom-8 duration-700 uppercase italic">
+          <h1 className="text-4xl sm:text-5xl md:text-[8rem] lg:text-[10rem] font-black text-white mb-6 md:mb-10 leading-[0.8] tracking-tighter animate-in fade-in slide-in-from-bottom-8 duration-700 uppercase italic">
             Experience <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-rose-500">The Pulse</span>
           </h1>
@@ -77,21 +77,21 @@ const Home = () => {
           </p>
 
 
-          <div className="max-w-4xl mx-auto glass p-4 rounded-[2.5rem] border border-white/10 shadow-[0_32px_128px_-16px_rgba(0,0,0,0.8)] flex flex-col md:flex-row gap-4 animate-in fade-in zoom-in duration-1000">
-            <div className="flex-[2] flex items-center gap-5 px-8 py-5 rounded-[1.8rem] bg-white/5 border border-white/5 group focus-within:border-indigo-500/40 transition-all shadow-inner">
-              <Search className="text-slate-500 group-focus-within:text-indigo-400" size={24} />
+          <div className="max-w-4xl mx-auto glass p-3 md:p-4 rounded-3xl md:rounded-[2.5rem] border border-white/10 shadow-[0_32px_128px_-16px_rgba(0,0,0,0.8)] flex flex-col md:flex-row gap-3 md:gap-4 animate-in fade-in zoom-in duration-1000">
+            <div className="flex-2 flex items-center gap-3 md:gap-5 px-5 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-[1.8rem] bg-white/5 border border-white/5 group focus-within:border-indigo-500/40 transition-all shadow-inner">
+              <Search className="text-slate-500 group-focus-within:text-indigo-400 flex-shrink-0" size={20} />
               <input
                 type="text"
-                placeholder="Search experiences, venues, vibes..."
-                className="w-full bg-transparent border-none outline-none text-white text-lg font-bold placeholder:text-slate-700"
+                placeholder="Search experiences..."
+                className="w-full bg-transparent border-none outline-none text-white text-base md:text-lg font-bold placeholder:text-slate-700"
                 value={searchTerm}
                 onChange={e => setSearchTerm(e.target.value)}
               />
             </div>
-            <div className="flex-1 flex items-center gap-4 px-8 py-5 rounded-[1.8rem] bg-white/5 border border-white/5 focus-within:border-indigo-500/40 transition-all">
-              <MapPin className="text-slate-500" size={22} />
+            <div className="flex-1 flex items-center gap-3 md:gap-4 px-5 md:px-8 py-4 md:py-5 rounded-2xl md:rounded-[1.8rem] bg-white/5 border border-white/5 focus-within:border-indigo-500/40 transition-all">
+              <MapPin className="text-slate-500 flex-shrink-0" size={20} />
               <select
-                className="bg-transparent border-none outline-none text-white font-black text-sm uppercase tracking-widest cursor-pointer appearance-none w-full"
+                className="bg-transparent border-none outline-none text-white font-black text-xs md:text-sm uppercase tracking-widest cursor-pointer appearance-none w-full"
                 value={activeCity}
                 onChange={e => setActiveCity(e.target.value)}
               >
@@ -99,18 +99,17 @@ const Home = () => {
                 <option value="Melbourne">Melbourne Hub</option>
               </select>
             </div>
-            <button className="flex-1 bg-white text-black font-black px-10 py-5 rounded-[1.8rem] transition-all hover:bg-indigo-500 hover:text-white active:scale-95 shadow-2xl flex items-center justify-center gap-3 group">
+            <button className="flex-1 bg-white text-black font-black px-6 md:px-10 py-4 md:py-5 rounded-2xl md:rounded-[1.8rem] transition-all hover:bg-indigo-500 hover:text-white active:scale-95 shadow-2xl flex items-center justify-center gap-3 group text-sm">
               INITIATE
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
             </button>
           </div>
 
-
-          <div className="mt-20 flex justify-center gap-20 animate-in fade-in duration-1000 delay-500">
+          <div className="mt-12 md:mt-20 flex flex-wrap justify-center gap-6 md:gap-20 animate-in fade-in duration-1000 delay-500">
             {Object.entries(stats).map(([key, val]) => (
               <div key={key} className="text-center">
-                <p className="text-4xl font-black text-white tracking-tighter">{val}</p>
-                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mt-2">{key}</p>
+                <p className="text-3xl md:text-5xl font-black text-white tracking-tighter">{val}</p>
+                <p className="text-[9px] md:text-[10px] font-black text-slate-500 uppercase tracking-widest mt-1 md:mt-2">{key}</p>
               </div>
             ))}
           </div>
@@ -125,18 +124,18 @@ const Home = () => {
               <Star className="text-amber-500 fill-amber-500" size={20} />
               <span className="text-xs font-black text-indigo-400 uppercase tracking-[0.4em]">Intelligence Verified</span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-black text-white mb-6 tracking-tighter uppercase leading-[0.9]">
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tighter uppercase leading-[0.9]">
               Curated <br /><span className="text-indigo-500 italic">Benchmarks.</span>
             </h2>
             <div className="h-1 w-24 bg-indigo-500/50 rounded-full"></div>
           </div>
 
-          <div className="flex bg-white/5 p-2 rounded-[2rem] border border-white/5 backdrop-blur-md">
+          <div className="flex bg-white/5 p-2 rounded-[2rem] border border-white/5 backdrop-blur-md w-full md:w-auto">
             {['Sydney', 'Melbourne'].map(city => (
               <button
                 key={city}
                 onClick={() => setActiveCity(city)}
-                className={`px-10 py-4 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeCity === city ? 'bg-white text-black shadow-xl' : 'text-slate-500 hover:text-slate-300'}`}
+                className={`flex-1 md:flex-none px-6 md:px-10 py-4 rounded-[1.5rem] text-xs font-black uppercase tracking-widest transition-all ${activeCity === city ? 'bg-white text-black shadow-xl' : 'text-slate-500 hover:text-slate-300'}`}
               >
                 {city}
               </button>
@@ -162,10 +161,10 @@ const Home = () => {
                 />
               ))
             ) : (
-              <div className="col-span-full py-40 text-center glass rounded-[4rem] border-dashed border-2 border-white/10">
-                <Search size={64} className="mx-auto text-slate-800 mb-8" />
-                <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">No Matches in Database</h3>
-                <p className="text-slate-500 max-w-sm mx-auto font-medium">Reset your filters or pivot your search parameters to find new experiences.</p>
+              <div className="col-span-full py-20 md:py-40 text-center glass rounded-3xl md:rounded-[4rem] border-dashed border-2 border-white/10 px-6">
+                <Search className="mx-auto text-slate-800 mb-6 md:mb-8 w-12 h-12 md:w-16 md:h-16" />
+                <h3 className="text-2xl md:text-3xl font-black text-white mb-3 md:mb-4 uppercase tracking-tighter">No Matches in Database</h3>
+                <p className="text-slate-500 max-w-sm mx-auto font-medium text-sm md:text-base">Reset your filters or pivot your search parameters to find new experiences.</p>
               </div>
             )}
           </div>
@@ -174,9 +173,9 @@ const Home = () => {
 
 
       <section className="bg-white/2 py-40 border-y border-white/5 relative">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
           <div>
-            <h2 className="text-5xl md:text-7xl font-black text-white mb-10 tracking-tighter uppercase italic leading-none">
+            <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-8 md:mb-10 tracking-tighter uppercase italic leading-none">
               Discover <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-rose-500">The Iconic.</span>
             </h2>
@@ -211,10 +210,10 @@ const Home = () => {
 
 
       <section className="max-w-7xl mx-auto px-6 py-40">
-        <div className="glass p-20 md:p-32 rounded-[5rem] relative overflow-hidden text-center group">
+        <div className="glass p-8 md:p-32 rounded-3xl md:rounded-[5rem] relative overflow-hidden text-center group">
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-600/10 via-transparent to-rose-600/10 opacity-50 group-hover:opacity-100 transition-opacity duration-1000"></div>
           <div className="relative z-10">
-            <h2 className="text-5xl md:text-[6rem] font-black text-white mb-10 tracking-tighter uppercase italic leading-[0.8]">
+            <h2 className="text-3xl sm:text-4xl md:text-[6rem] font-black text-white mb-6 md:mb-10 tracking-tighter uppercase italic leading-[1]">
               Join The <br />Curation.
             </h2>
             <p className="text-slate-400 text-xl max-w-2xl mx-auto mb-16 font-medium">

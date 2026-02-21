@@ -10,10 +10,10 @@ const About = () => {
             <Sparkles size={14} />
             <span>The Vision</span>
           </div>
-          <h1 className="text-6xl md:text-9xl font-black text-white mb-8 tracking-tighter leading-none italic uppercase">
+          <h1 className="text-4xl sm:text-5xl md:text-9xl font-black text-white mb-6 md:mb-8 tracking-tighter leading-none italic uppercase">
             Syd<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-rose-500">Events</span>
           </h1>
-          <p className="max-w-3xl text-xl md:text-2xl text-slate-400 font-medium leading-relaxed">
+          <p className="max-w-3xl text-lg md:text-2xl text-slate-400 font-medium leading-relaxed px-4">
             We don't just list events. We curate the soul of Sydney. From underground jazz dens to stadium spectacles, we are your gateway to the moments that define the city.
           </p>
         </div>
@@ -40,12 +40,12 @@ const About = () => {
               color: 'text-emerald-500'
             },
           ].map((item, i) => (
-            <div key={i} className="glass p-12 rounded-[3rem] border border-white/5 group hover:border-indigo-500/30 transition-all duration-500">
-              <div className={`p-4 rounded-2xl bg-white/5 w-fit mb-8 group-hover:scale-110 transition-transform ${item.color}`}>
-                <item.icon size={32} />
+            <div key={i} className="glass p-8 md:p-12 rounded-3xl md:rounded-[3rem] border border-white/5 group hover:border-indigo-500/30 transition-all duration-500">
+              <div className={`p-4 rounded-2xl bg-white/5 w-fit mb-6 md:mb-8 group-hover:scale-110 transition-transform ${item.color}`}>
+                <item.icon size={28} className="md:w-8 md:h-8" />
               </div>
-              <h3 className="text-2xl font-black text-white mb-4 uppercase tracking-tight">{item.title}</h3>
-              <p className="text-slate-400 font-medium leading-relaxed">{item.desc}</p>
+              <h3 className="text-xl md:text-2xl font-black text-white mb-3 md:mb-4 uppercase tracking-tight">{item.title}</h3>
+              <p className="text-sm md:text-base text-slate-400 font-medium leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -61,7 +61,7 @@ const About = () => {
             />
           </div>
           <div className="flex-1">
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-10 tracking-tighter uppercase leading-none">
+            <h2 className="text-3xl md:text-6xl font-black text-white mb-6 md:mb-10 tracking-tighter uppercase leading-none">
               Born in the <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-500">Heart of Sydney.</span>
             </h2>
@@ -71,28 +71,28 @@ const About = () => {
             <p className="text-slate-400 text-lg mb-12 leading-relaxed font-medium">
               Today, we serve over 20,000 active discovery-seekers monthly, bridging the gap between digital discovery and real-world experience. Our mission is to ensure no Sydneysider ever says "there's nothing to do" again.
             </p>
-            <div className="flex items-center gap-12">
+            <div className="flex items-center flex-wrap gap-8 md:gap-12 mt-8">
               <div>
-                <h4 className="text-4xl font-black text-white mb-1">20K+</h4>
-                <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Active Users</p>
+                <h4 className="text-3xl md:text-4xl font-black text-white mb-1">20K+</h4>
+                <p className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest">Active Users</p>
               </div>
               <div>
-                <h4 className="text-4xl font-black text-white mb-1">500+</h4>
-                <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Venues</p>
+                <h4 className="text-3xl md:text-4xl font-black text-white mb-1">500+</h4>
+                <p className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest">Venues</p>
               </div>
               <div>
-                <h4 className="text-4xl font-black text-white mb-1">1.2M</h4>
-                <p className="text-xs font-black text-slate-500 uppercase tracking-widest">Ticket Clicks</p>
+                <h4 className="text-3xl md:text-4xl font-black text-white mb-1">1.2M</h4>
+                <p className="text-[10px] md:text-xs font-black text-slate-500 uppercase tracking-widest">Ticket Clicks</p>
               </div>
             </div>
           </div>
         </div>
 
 
-        <div className="relative glass p-16 md:p-32 rounded-[5rem] overflow-hidden text-center">
+        <div className="relative glass p-8 md:p-32 rounded-3xl md:rounded-[5rem] overflow-hidden text-center">
           <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,_rgba(99,102,241,0.1)_0%,_transparent_70%)] opacity-50"></div>
-          <Globe className="text-indigo-500 opacity-20 mx-auto mb-10" size={80} />
-          <h2 className="text-4xl md:text-7xl font-black text-white mb-10 tracking-tighter uppercase leading-none relative z-10">
+          <Globe className="text-indigo-500 opacity-20 mx-auto mb-6 md:mb-10 w-16 h-16 md:w-20 md:h-20" />
+          <h2 className="text-3xl sm:text-4xl md:text-7xl font-black text-white mb-8 md:mb-10 tracking-tighter uppercase leading-none relative z-10">
             Join the <br />Movement.
           </h2>
           <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
